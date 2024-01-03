@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="1.1-create-permissions" author="Musaddique">
+        <createTable tableName="permission">
+            <column name="code" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <insert tableName="permission">
+            <column name="code" value="VIEW_DASHBOARD"/>
+            <column name="name" value="View Dashboard"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="READ_TEACHERS"/>
+            <column name="name" value="View Teachers"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_TEACHERS"/>
+            <column name="name" value="Edit Teachers"/>
+        </insert>
+
+        <!-- Student Permissions -->
+        <insert tableName="permission">
+            <column name="code" value="READ_STUDENTS"/>
+            <column name="name" value="View Students"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_STUDENTS"/>
+            <column name="name" value="Edit Students"/>
+        </insert>
+
+        <!-- Staff Permissions -->
+        <insert tableName="permission">
+            <column name="code" value="READ_STAFF"/>
+            <column name="name" value="View Staff"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_STAFF"/>
+            <column name="name" value="Edit Staff"/>
+        </insert>
+
+        <!-- Fees Permissions -->
+        <insert tableName="permission">
+            <column name="code" value="READ_FEES"/>
+            <column name="name" value="View Fees"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_FEES"/>
+            <column name="name" value="Edit Fees"/>
+        </insert>
+
+        <!-- Invoices Permissions -->
+        <insert tableName="permission">
+            <column name="code" value="READ_INVOICES"/>
+            <column name="name" value="View Invoices"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_INVOICES"/>
+            <column name="name" value="Edit Invoices"/>
+        </insert>
+
+        <!-- Attendance Permissions -->
+        <insert tableName="permission">
+            <column name="code" value="READ_ATTENDANCE"/>
+            <column name="name" value="View Attendance"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_ATTENDANCE"/>
+            <column name="name" value="Edit Attendance"/>
+        </insert>
+
+        <!-- Performance Permissions -->
+        <insert tableName="permission">
+            <column name="code" value="READ_PERFORMANCE"/>
+            <column name="name" value="View Performance"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_PERFORMANCE"/>
+            <column name="name" value="Edit Performance"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="READ_USER_MANAGEMENT"/>
+            <column name="name" value="View Users"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_USER_MANAGEMENT"/>
+            <column name="name" value="Edit Users"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="READ_ROLE"/>
+            <column name="name" value="View Roles"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="WRITE_ROLE"/>
+            <column name="name" value="Edit Roles"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="SUPREME_ADMIN"/>
+            <column name="name" value="Supreme Admin"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
