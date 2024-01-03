@@ -1,0 +1,61 @@
+server:
+  port: "8080"
+  forward-headers-strategy: "framework"
+  shutdown: "graceful"
+management:
+  server:
+    port: "8081"
+  endpoint:
+    health:
+      show-details: "always"
+      probes:
+        enabled: "true"
+  endpoints:
+    health:
+      sensitive: "false"
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      x-forwarded:
+        prefix-enabled: "false"
+      routes:
+        - id: admin
+          uri: http://localhost:8051
+          filters:
+            - RewritePath=/admin/api/(?<segment>/?.*),/$\{segment}
+          predicates:
+            - Path=/admin/api/**
+        - id: ums
+          uri: http://localhost:8052
+          filters:
+            - RewritePath=/ums/api/(?<segment>/?.*), /$\{segment}
+          predicates:
+            - Path=/ums/api/**
+  main:
+    allow-bean-definition-overriding: "true"
+jwt:
+  secret: "${JWT_SECRET:musaddique-kaffa-secret-F2B323BE-9434-11EE-B9D1-0242AC120002}"
+  public-apis: "/ums/api/auth/password/reset,/ums/api/auth/password/forgot,/ums/api/public/**,/actuator/**,/favicon.ico"
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+  client:
+    healthcheck:
+      enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        cloud:
+          gateway: DEBUG

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="1.3-create-auth-with-suprem-user" author="Musaddique">
+
+        <createTable tableName="user_auth">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enable" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="admin_user_type" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_temp_password" type="boolean" defaultValue="0">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <insert tableName="user_auth">
+            <column name="username" value="admin"/>
+            <column name="password"
+                    value="$2a$10$72Us2Hm7iANiNTFvVmWNMeIR3FAsFlOuB/xNMH7wkx3us7WXLWSFC"/> <!-- pass = admin -->
+            <column name="enable" valueBoolean="true"/>
+            <column name="is_temp_password" valueBoolean="false"/>
+            <column name="admin_user_type" value="SUPREME"/>
+            <column name="created_at" value="now()"/>
+            <column name="updated_at" value="now()"/>
+        </insert>
+
+        <createTable tableName="preferences">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="language" type="VARCHAR(255)"/>
+            <column name="theme" type="VARCHAR(255)"/>
+        </createTable>
+        <insert tableName="preferences">
+            <column name="language" value="English"/>
+            <column name="theme" value="Light"/>
+        </insert>
+
+
+        <createTable tableName="address">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="streetAddress" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="state" type="VARCHAR(255)"/>
+            <column name="postalCode" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(255)"/>
+        </createTable>
+
+        <insert tableName="address">
+            <column name="streetAddress" value="123 Main Street"/>
+            <column name="city" value="Dubai"/>
+            <column name="state" value="Dubai"/>
+            <column name="postalCode" value="12345"/>
+            <column name="country" value="UAE"/>
+        </insert>
+
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="date_of_birth" type="DATE"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="profile_picture" type="BLOB"/>
+            <column name="organization_id" type="BIGINT"/>
+            <column name="social_media_accounts" type="TEXT"/>
+            <column name="custom_fields" type="TEXT"/>
+            <column name="preferences_id" type="BIGINT">
+                <constraints nullable="true"
+                             foreignKeyName="fk_user_preferences"
+                             references="preferences(id)" deleteCascade="true"/>
+            </column>
+            <column name="user_auth_id" type="BIGINT">
+                <constraints
+                        foreignKeyName="fk_user_user_auth"
+                        references="user_auth(id)" deleteCascade="true"
+                />
+            </column>
+        </createTable>
+        <insert tableName="user">
+            <column name="email" value="musajs91@gmail.com"/>
+            <column name="first_name" value="Musaddique"/>
+            <column name="last_name" value="Sanderwale"/>
+            <column name="phone_number" value="0555555555"/>
+            <column name="date_of_birth" value="1991-01-01"/>
+            <column name="gender" value="MALE"/>
+            <column name="user_auth_id" value="1"/>
+            <column name="preferences_id" value="1"/>
+        </insert>
+
+        <createTable tableName="user_address">
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="fk_user_address_user_id" references="user(id)"/>
+            </column>
+            <column name="address_id" type="BIGINT">
+                <constraints foreignKeyName="fk_user_address_address_id" references="address(id)"/>
+            </column>
+        </createTable>
+        <insert tableName="user_address">
+            <column name="user_id" value="1"/>
+            <column name="address_id" value="1"/>
+        </insert>
+
+        <createTable tableName="user_role">
+            <column name="user_id" type="BIGINT">
+                <constraints foreignKeyName="fk_user_role_user_id" references="user(id)"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints foreignKeyName="fk_user_role_role_id" references="role(id)"/>
+            </column>
+        </createTable>
+        <insert tableName="user_role">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
