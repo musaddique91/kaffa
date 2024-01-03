@@ -31,6 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+boot-admin/target/
+kaffa-common/target/
+kaffa-security/target/
 registry/target/
 gateway/target/
 admin/target/
