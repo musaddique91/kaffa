@@ -6,6 +6,6 @@ import lombok.Data
 @Data
 @Builder
 data class KeyValue(
-    val key: String,
-    val value: String
+    var key: String,
+    var value: String
 )

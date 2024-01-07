@@ -7,6 +7,6 @@ import lombok.Data
 @Data
 @Entity
 data class Preferences(
-    val language: String,
-    val theme: String,
+    var language: String,
+    var theme: String,
 ) : BaseIdEntity()

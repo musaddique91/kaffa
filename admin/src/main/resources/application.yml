@@ -28,9 +28,6 @@ spring:
 #      client:
 #        url: http://localhost:8091
 eureka:
-  instance:
-    lease-expiration-duration-in-seconds: 2
-    lease-renewal-interval-in-seconds: 1
   client:
     healthcheck:
       enabled: true
@@ -59,3 +56,4 @@ logging:
 ums:
   service:
     name: "ums"
+    url: "http://localhost:8052"

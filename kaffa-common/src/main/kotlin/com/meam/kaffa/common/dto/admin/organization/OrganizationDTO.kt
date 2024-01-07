@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor
 class OrganizationDTO(
     val id: Long?,
     val name: String,
+    val description: String?,
     val address: List<AddressDTO> = emptyList(),
     val modules: List<ModuleDTO> = emptyList(),
 )

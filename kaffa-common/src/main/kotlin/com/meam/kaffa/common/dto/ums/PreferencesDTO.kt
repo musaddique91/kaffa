@@ -6,6 +6,9 @@ import lombok.Data
 @Data
 @Builder
 data class PreferencesDTO(
-    val language: String,
-    val theme: String,
-)
+    var id: Long?,
+    var language: String?,
+    var theme: String?,
+) {
+    constructor() : this(null, null, null)
+}

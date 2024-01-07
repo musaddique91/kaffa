@@ -25,10 +25,10 @@ class OrganizationService(
 
     fun createOrganization(organizationDTO: OrganizationDTO) =
         organizationDTO
-            ?.let { organizationMapper.toEntity(organizationDTO) }
-            ?.let { setModulesToOrganization(organizationDTO, it) }
-            ?.let { organizationRepository.save(it) }
-            ?.let { organizationMapper.toDTO(it) }
+            .let { organizationMapper.toEntity(organizationDTO) }
+            .let { setModulesToOrganization(organizationDTO, it) }
+            .let { organizationRepository.save(it) }
+            .let { organizationMapper.toDTO(it) }
 
 
     fun updateOrganization(organizationId: Long, organizationDTO: OrganizationDTO) =
@@ -50,4 +50,8 @@ class OrganizationService(
             .mapNotNull { moduleRepository.findByIdOrNull(it.code) }
             .toMutableList()
             .let { organization.modules = it }.run { organization }
+
+    private fun createAdminRoleForOrganization(organizationId: Long) {
+
+    }
 }

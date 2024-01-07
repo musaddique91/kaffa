@@ -1,17 +1,16 @@
 package com.meam.kaffa.admin.entity
 
-import jakarta.persistence.*
+import com.meam.kaffa.common.entity.BaseIdEntity
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.OneToMany
 import lombok.Data
 
 @Data
 @Entity
 data class Organization(
-    @Id @GeneratedValue val id: Long = 0,
     val name: String,
-    val description: String,
+    val description: String?,
     @OneToMany(cascade = [CascadeType.ALL]) var address: List<Address> = emptyList(),
-    @OneToMany(
-        mappedBy = "organization",
-        cascade = [CascadeType.ALL]
-    ) var modules: MutableList<Module> = mutableListOf(),
-)
+    @OneToMany(cascade = [CascadeType.MERGE]) var modules: MutableList<Module> = mutableListOf(),
+): BaseIdEntity()

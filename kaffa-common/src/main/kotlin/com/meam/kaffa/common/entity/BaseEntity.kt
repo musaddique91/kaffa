@@ -31,7 +31,7 @@ open class BaseEntity {
         protected set
 
     @LastModifiedDate
-    var updatedAt: LocalDateTime? = null
+    var modifiedAt: LocalDateTime? = null
         protected set
 
     @CreatedBy

@@ -2,13 +2,15 @@ package com.meam.kaffa.common.dto.ums
 
 import lombok.Builder
 import lombok.Data
+import lombok.NoArgsConstructor
 
 @Data
 @Builder
+@NoArgsConstructor
 data class RoleDTO(
-    val id: Long = 0,
-    val name: String,
-    val permissions: List<PermissionDTO> = emptyList(),
-    val organizationId: Long
+    var id: Long = 0,
+    var name: String,
+    var permissions: List<PermissionDTO> = emptyList(),
+    var organizationId: Long
 )
 

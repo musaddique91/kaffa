@@ -13,17 +13,13 @@ class UserService(
     private val umsClient: UMSClient
 ) {
     fun create(userDTO: UserDTO): UserDTO {
-        if (userDTO.organizationId == null) {
-            userDTO.organizationId = tokenHelper.organizationId()
-        }
+        userDTO.organizationId ?: throw IllegalArgumentException("organizationId is required")
         return umsClient.createUser(userDTO)
     }
 
     fun update(id: Long, userDTO: UserDTO): UserDTO {
-        if (userDTO.organizationId == null) {
-            userDTO.organizationId = tokenHelper.organizationId()
-        }
-        return umsClient.update(id,userDTO)
+        userDTO.organizationId ?: throw IllegalArgumentException("organizationId is required")
+        return umsClient.update(id, userDTO)
     }
 
     fun getUser(id: Long): UserDTO = umsClient.getUser(id)

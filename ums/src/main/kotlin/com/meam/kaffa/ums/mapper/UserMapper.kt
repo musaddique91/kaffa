@@ -9,6 +9,7 @@ import org.mapstruct.Mapping
 @Mapper(componentModel = "spring")
 interface UserMapper : BaseMapper<User, UserDTO> {
     @Mapping(source = "userAuth.username", target = "username")
+    @Mapping(source = "userAuth.enable", target = "enabled")
     @Mapping(target = "userPicture", ignore = true)
     override fun toDTO(user: User): UserDTO
 

@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor
 @Data
 @Builder
 @NoArgsConstructor
-class AddressDTO(
-    val streetAddress: String,
-    val city: String,
-    val state: String,
-    val postalCode: String,
-    val country: String,
+data class AddressDTO(
+    var streetAddress: String?,
+    var city: String?,
+    var state: String?,
+    var postalCode: String?,
+    var country: String,
 )

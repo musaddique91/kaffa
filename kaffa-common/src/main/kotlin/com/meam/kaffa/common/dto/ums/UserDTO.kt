@@ -1,5 +1,6 @@
 package com.meam.kaffa.common.dto.ums
 
+import com.meam.kaffa.common.dto.AuditDTO
 import com.meam.kaffa.common.dto.admin.organization.AddressDTO
 import com.meam.kaffa.common.entity.BaseEntity
 import com.meam.kaffa.common.enumrate.Gender
@@ -14,17 +15,19 @@ import java.time.LocalDate
 @NoArgsConstructor
 data class UserDTO(
     var username: String,
-    val email: String?,
-    val firstName: String,
-    val lastName: String,
-    val phoneNumber: String?,
-    val address: List<AddressDTO> = emptyList(),
-    val roles: List<RoleDTO> = emptyList(),
-    val preferences: PreferencesDTO?,
-    val dateOfBirth: LocalDate?,
-    val gender: Gender?,
-    var userPicture: String?,
-    val socialMediaAccounts: List<KeyValue>?,
-    val customFields: List<KeyValue>?,
-    var organizationId: Long?
-) : BaseEntity()
+    var email: String?,
+    var firstName: String,
+    var lastName: String,
+    var phoneNumber: String?,
+    var address: List<AddressDTO>? = emptyList(),
+    var roles: List<RoleDTO> = emptyList(),
+    var preferences: PreferencesDTO? = null,
+    var dateOfBirth: LocalDate? =null ,
+    var gender: Gender?,
+    var userPicture: String? = null,
+    var socialMediaAccounts: List<KeyValue>? = emptyList(),
+    var customFields: List<KeyValue>? = emptyList(),
+    var organizationId: Long?,
+    var enabled: Boolean? = true,
+    var authrities: MutableSet<String>? = mutableSetOf()
+) : AuditDTO()

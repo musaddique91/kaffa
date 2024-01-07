@@ -40,7 +40,7 @@ class UserAuthService(
                 )
 
                 val additionalClaims = mutableMapOf<String, Any>(
-                    SecurityConstants.CLAIM_EMAIL to (it.email ?: "default"),
+                    SecurityConstants.CLAIM_EMAIL to (it.email ?: "musajs91@gmail.com"),
                     SecurityConstants.CLAIM_FIRSTNAME to it.firstName,
                     SecurityConstants.CLAIM_LASTNAME to it.lastName,
                     SecurityConstants.CLAIM_ORGANIZATIONID to it.organizationId

@@ -83,6 +83,7 @@
             <column name="code" value="WRITE_PERFORMANCE"/>
             <column name="name" value="Edit Performance"/>
         </insert>
+
         <insert tableName="permission">
             <column name="code" value="READ_USER_MANAGEMENT"/>
             <column name="name" value="View Users"/>
@@ -100,8 +101,20 @@
             <column name="name" value="Edit Roles"/>
         </insert>
         <insert tableName="permission">
+            <column name="code" value="FULL_ADMINISTRATOR"/>
+            <column name="name" value="Administrator Users"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="MONITORING"/>
+            <column name="name" value="Monitoring"/>
+        </insert>
+        <insert tableName="permission">
             <column name="code" value="SUPREME_ADMIN"/>
             <column name="name" value="Supreme Admin"/>
+        </insert>
+        <insert tableName="permission">
+            <column name="code" value="TECHNICAL_USER"/>
+            <column name="name" value="Technical User"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

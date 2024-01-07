@@ -19,13 +19,14 @@ class UserDetailsProvider(
             ?.let {
                 UserDetails(
                     it.userAuth.username,
-                    it.userAuth.enabled,
+                    it.userAuth.enable,
                     it.roles.flatMap { role -> role.permissions }.map { it.code }.toMutableSet(),
                     it.email,
                     it.firstName,
                     it.lastName,
                     it.phoneNumber,
-                    it.organizationId
+                    it.organizationId,
+                    it.gender?.name
                 )
             } ?: throw UsernameNotFoundException("User not found")
     }

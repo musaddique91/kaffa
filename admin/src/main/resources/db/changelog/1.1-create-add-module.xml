@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="1.1-create-add-module" author="Musaddique">
+        <createTable tableName="module">
+            <column name="code" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <insert tableName="module">
+            <column name="code" value="DASHBOARD" />
+            <column name="name" value="Dashboard" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="module">
+            <column name="code" value="STUDENT" />
+            <column name="name" value="Student" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="module">
+            <column name="code" value="TEACHER" />
+            <column name="name" value="Teacher" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="module">
+            <column name="code" value="DEPARTMENT" />
+            <column name="name" value="Department" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="module">
+            <column name="code" value="FEES" />
+            <column name="name" value="Fees" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="module">
+            <column name="code" value="ATTENDANCE" />
+            <column name="name" value="Attendance" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+        <insert tableName="module">
+            <column name="code" value="USER_MANAGEMENT" />
+            <column name="name" value="User Management" />
+            <column name="active" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

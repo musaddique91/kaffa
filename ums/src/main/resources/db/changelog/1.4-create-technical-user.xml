@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1.4-create-technical-user" author="admin">
+
+        <insert tableName="user_auth">
+            <column name="username" value="tech-user"/>
+            <column name="password" value="$2a$10$72Us2Hm7iANiNTFvVmWNMeIR3FAsFlOuB/xNMH7wkx3us7WXLWSFC"/>
+            <column name="enable" valueBoolean="true"/>
+            <column name="is_temp_password" valueBoolean="false"/>
+            <column name="admin_user_type" value="NULL"/>
+        </insert>
+        <insert tableName="user">
+            <column name="email" value="musajs91@gmail.com"/>
+            <column name="first_name" value="Technical"/>
+            <column name="last_name" value="User"/>
+            <column name="phone_number" value="0555555555"/>
+            <column name="date_of_birth" value="1991-01-01"/>
+            <column name="gender" value="MALE"/>
+            <column name="user_auth_id" valueComputed="(select id from user_auth where username = 'tech-user')"/>
+            <column name="preferences_id" value="1"/>
+            <column name="organization_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_address">
+            <column name="user_id" valueComputed="(select id from user where first_name = 'Technical' and last_name = 'User')"/>
+            <column name="address_id" value="1"/>
+        </insert>
+
+
+        <insert tableName="user_role">
+            <column name="user_id" valueComputed="(select id from user where first_name = 'Technical' and last_name = 'User')"/>
+            <column name="role_id" valueComputed="(select id from role where name = 'Technical Role')"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

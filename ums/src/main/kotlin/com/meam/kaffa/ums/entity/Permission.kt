@@ -8,6 +8,6 @@ import lombok.Data
 @Data
 @Entity
 data class Permission(
-    @Id val code: String,
-    val name: String,
+    @Id var code: String,
+    var name: String,
 )

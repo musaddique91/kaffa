@@ -2,6 +2,7 @@ package com.meam.kaffa.ums.service
 
 import com.meam.kaffa.common.dto.ums.UserDTO
 import com.meam.kaffa.ums.mapper.UserMapper
+import com.meam.kaffa.ums.repository.UserAuthRepository
 import com.meam.kaffa.ums.repository.UserRepository
 import lombok.extern.slf4j.Slf4j
 import org.springframework.data.repository.findByIdOrNull
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service
 @Slf4j
 class UserService(
     private val userRepository: UserRepository,
-    private val userMapper: UserMapper
+    private val userMapper: UserMapper,
+    private val userDetailsProvider: UserDetailsProvider, private val userAuthRepository: UserAuthRepository
 ) {
 
     fun create(userDTO: UserDTO): UserDTO {
@@ -39,5 +41,17 @@ class UserService(
 
     fun delete(id: Long) {
         userRepository.deleteById(id)
+    }
+
+    fun getUserByUsername(username: String): UserDTO? {
+        return userAuthRepository.findByUsername(username)
+            ?.let { auth ->
+                userRepository.findByUserAuthId(auth.id!!)
+                    ?.let { userMapper.toDTO(it) }
+                    ?.let { dto ->
+                        dto.enabled = auth.enable
+                        dto
+                    }
+            }
     }
 }

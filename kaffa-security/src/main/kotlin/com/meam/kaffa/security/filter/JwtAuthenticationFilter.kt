@@ -54,7 +54,8 @@ class JwtAuthenticationFilter(
     private fun String.extractToken() = this.substringAfter(SecurityConstants.BEARER_PREFIX)
 
     private fun updateSecurityContext(token: String, foundUser: UserDetails, request: HttpServletRequest) {
-        val authToken = UsernamePasswordAuthenticationToken(token, foundUser, AuthorityUtils.createAuthorityList(foundUser.dbAuthorities))
+        val authorities = foundUser.dbAuthorities.filter { !it.startsWith("ROLE_") }.map { "ROLE_$it" }.toMutableList()
+        val authToken = UsernamePasswordAuthenticationToken(token, foundUser, AuthorityUtils.createAuthorityList(authorities))
         authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
         SecurityContextHolder.getContext().authentication = authToken
     }

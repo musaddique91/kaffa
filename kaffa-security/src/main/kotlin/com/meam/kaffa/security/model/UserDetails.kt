@@ -1,5 +1,6 @@
 package com.meam.kaffa.security.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import lombok.Data
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -15,14 +16,16 @@ class UserDetails(
     val firstName: String,
     val lastName: String,
     val phoneNumber: String?,
-    val organizationId: Long,
+    val organizationId: Long?,
+    val gender: String?,
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return this.dbAuthorities.map { SimpleGrantedAuthority(it) }.toMutableList()
     }
 
+    @JsonIgnore
     override fun getPassword(): String {
-        TODO("Not yet implemented")
+        return "";
     }
 
     override fun getUsername() = this.dbUsername

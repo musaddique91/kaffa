@@ -11,7 +11,7 @@ import lombok.Data
 data class UserAuth(
     @Column(nullable = false, length = 100, unique = true) val username: String,
     @Column(nullable = false, length = 1000) val password: String,
-    @Column(nullable = false) val enabled: Boolean = true,
+    @Column(nullable = false) val enable: Boolean = true,
     @Column(nullable = true) var isTempPassword: Boolean = false,
     @Enumerated(EnumType.STRING)
     @Column(nullable = true) var adminUserType: AdminUserType,

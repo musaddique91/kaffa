@@ -6,7 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
     <changeSet id="1.2-create-supreme-role" author="Musaddique">
         <createTable tableName="role">
-            <column name="id" type="BIGINT">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
@@ -14,8 +14,12 @@
             <column name="internal_role" type="boolean"/>
         </createTable>
         <insert tableName="role">
-            <column name="id" value="1"/>
             <column name="name" value="Suprem User"/>
+            <column name="organizationId" value="1"/>
+            <column name="internal_role" valueBoolean="true"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="Technical Role"/>
             <column name="organizationId" value="1"/>
             <column name="internal_role" valueBoolean="true"/>
         </insert>
@@ -30,8 +34,12 @@
         </createTable>
 
         <insert tableName="role_permission">
-            <column name="role_id" value="1"/>
+            <column name="role_id" valueComputed="(select id from role where name = 'Suprem User')"/>
             <column name="permission_code" value="SUPREME_ADMIN"/>
+        </insert>
+        <insert tableName="role_permission">
+            <column name="role_id" valueComputed="(select id from role where name = 'Technical Role')"/>
+            <column name="permission_code" value="TECHNICAL_USER"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

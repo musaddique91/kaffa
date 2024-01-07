@@ -8,16 +8,16 @@ import lombok.Data
 data class Role(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    val name: String,
+    var id: Long? = null,
+    var name: String,
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinTable(
         name = "role_permission",
         joinColumns = [JoinColumn(name = "role_id")],
         inverseJoinColumns = [JoinColumn(name = "permission_code")]
     )
-    val permissions: List<Permission> = emptyList(),
-    val organizationId: Long,
-    val internalRole: Boolean?
+    var permissions: List<Permission> = emptyList(),
+    var organizationId: Long,
+    var internalRole: Boolean?
 )
 

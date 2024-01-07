@@ -11,45 +11,40 @@ import java.time.LocalDate
 @Data
 @Entity
 data class User(
-    val email: String?,
-    val firstName: String,
-    val lastName: String,
-    val phoneNumber: String?,
-    val dateOfBirth: LocalDate?,
-    val profilePicture: ByteArray? = null,
-    val organizationId: Long,
-    @Enumerated(EnumType.STRING) val gender: Gender?,
+    var email: String?,
+    var firstName: String,
+    var lastName: String,
+    var phoneNumber: String?,
+    var dateOfBirth: LocalDate?,
+    var profilePicture: ByteArray? = null,
+    var organizationId: Long,
+    @Enumerated(EnumType.STRING) var gender: Gender?,
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinTable(
         name = "user_address",
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "address_id")]
     )
-    val address: List<Address> = emptyList(),
+    var address: List<Address> = emptyList(),
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinTable(
         name = "user_role",
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
-    val roles: List<Role> = emptyList(),
+    var roles: List<Role> = emptyList(),
     @OneToOne(cascade = [CascadeType.ALL])
-    @JoinTable(
-        name = "user_role",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "role_id")]
-    )
-    val preferences: Preferences?,
+    var preferences: Preferences? = null,
     @Convert(converter = KeyValueListConvertor::class)
-    val socialMediaAccounts: List<KeyValue>?,
+    var socialMediaAccounts: List<KeyValue>?,
     @Convert(converter = KeyValueListConvertor::class)
-    val customFields: List<KeyValue>?,
-    @OneToOne(cascade = [CascadeType.ALL]) val userAuth: UserAuth
+    var customFields: List<KeyValue>?,
+    @OneToOne(cascade = [CascadeType.ALL]) var userAuth: UserAuth
 //    @ElementCollection
 //    @CollectionTable(
 //        name = "organization_ids",
 //        joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")]
 //    )
 //    @Column(name = "organization_id")
-//    val organizationIds: MutableList<Long> = mutableListOf()
+//    var organizationIds: MutableList<Long> = mutableListOf()
 ) : BaseEntity()

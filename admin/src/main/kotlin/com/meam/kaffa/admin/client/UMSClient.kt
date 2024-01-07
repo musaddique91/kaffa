@@ -1,14 +1,14 @@
 package com.meam.kaffa.admin.client
 
+import com.meam.kaffa.common.dto.ums.PermissionDTO
 import com.meam.kaffa.common.dto.ums.UserDTO
-import com.meam.kaffa.security.model.UserDetails
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.*
 
 @FeignClient(name = "\${ums.service.name}")
 interface UMSClient {
-    @GetMapping("users/{username}")
-    fun getUserByUsername(@PathVariable username: String): UserDetails
+    @GetMapping("users/userDetails/{username}")
+    fun getUserByUsername(@PathVariable username: String): UserDTO?
 
     @PostMapping("users")
     fun createUser(@RequestBody userDTO: UserDTO): UserDTO
@@ -21,4 +21,7 @@ interface UMSClient {
 
     @DeleteMapping("users{id}")
     fun deleteUser(@PathVariable id: Long)
+
+    @GetMapping("domain/permissions")
+    fun getPermissions(): List<PermissionDTO>
 }
