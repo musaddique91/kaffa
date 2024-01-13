@@ -1,14 +1,12 @@
 package com.meam.kaffa.ums.entity
 
+import com.meam.kaffa.common.entity.BaseEntity
 import jakarta.persistence.*
 import lombok.Data
 
 @Data
 @Entity
 data class Role(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
     var name: String,
     @OneToMany(cascade = [CascadeType.ALL])
     @JoinTable(
@@ -19,5 +17,5 @@ data class Role(
     var permissions: List<Permission> = emptyList(),
     var organizationId: Long,
     var internalRole: Boolean?
-)
+): BaseEntity()
 

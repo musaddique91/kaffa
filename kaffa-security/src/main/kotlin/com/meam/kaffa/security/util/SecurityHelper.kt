@@ -18,6 +18,8 @@ class SecurityHelper {
         val userName: String?
             get() = sessionUser?.username
 
-        val token = SecurityContextHolder.getContext().authentication.principal.toString()
+        fun getToken(): String? {
+            return SecurityContextHolder.getContext().authentication?.principal?.toString()
+        }
     }
 }

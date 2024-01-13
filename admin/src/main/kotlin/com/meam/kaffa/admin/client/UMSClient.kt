@@ -1,6 +1,7 @@
 package com.meam.kaffa.admin.client
 
 import com.meam.kaffa.common.dto.ums.PermissionDTO
+import com.meam.kaffa.common.dto.ums.RoleDTO
 import com.meam.kaffa.common.dto.ums.UserDTO
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.*
@@ -24,4 +25,7 @@ interface UMSClient {
 
     @GetMapping("domain/permissions")
     fun getPermissions(): List<PermissionDTO>
+
+    @PostMapping("roles")
+    fun createRole(@RequestBody roleDTO: RoleDTO): RoleDTO
 }
