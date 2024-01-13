@@ -63,7 +63,6 @@ class OrganizationService(
             .let { organization.modules = it }.run { organization }
 
     private fun createAdminRoleForOrganization(organizationId: Long) {
-        print( SecurityHelper.getToken())
         umsClient.createRole(
             RoleDTO(
                 name = "admin",
