@@ -8,7 +8,6 @@ import com.meam.kaffa.admin.repository.ModuleRepository
 import com.meam.kaffa.admin.repository.OrganizationRepository
 import com.meam.kaffa.common.dto.admin.organization.OrganizationDTO
 import com.meam.kaffa.common.dto.ums.RoleDTO
-import com.meam.kaffa.security.util.SecurityHelper
 import lombok.extern.slf4j.Slf4j
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -70,5 +69,10 @@ class OrganizationService(
                 permissions = umsClient.getPermissions()
             )
         )
+    }
+
+    fun getOrganizationById(id: Long): OrganizationDTO {
+        return (organizationRepository.findByIdOrNull(id) ?: throw OrganizationNotFoundException())
+            .let { organizationMapper.toDTO(it) }
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1.3-create-organization-config-table" author="admin">
+
+        <createTable tableName="organization_config">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_organizationconfig"/>
+            </column>
+            <column name="language" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="theme" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_user_with_password" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addColumn tableName="organization">
+            <column name="organization_config_id" type="BIGINT">
+                <constraints foreignKeyName="fk_organization_organizationconfig" references="organization_config(id)" deleteCascade="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

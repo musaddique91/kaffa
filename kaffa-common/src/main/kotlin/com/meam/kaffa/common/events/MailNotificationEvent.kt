@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import org.springframework.context.ApplicationEvent
 
 
-data class NotificationEvent @JsonCreator constructor(
+data class MailNotificationEvent @JsonCreator constructor(
     val source: String,
     val to: MutableList<String>,
     val type: NotificationType,

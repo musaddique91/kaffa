@@ -14,6 +14,8 @@ class OrganizationController(
     @GetMapping
     fun getAllOrganizations() = organizationService.getOrganizations()
 
+    @GetMapping("{id}")
+    fun getOrganizationById(@PathVariable id: Long) = organizationService.getOrganizationById(id)
     @PostMapping
     @PreAuthorize("hasRole('ROLE_SUPREME_ADMIN')")
     fun createOrganization(@RequestBody organizationDTO: OrganizationDTO) =

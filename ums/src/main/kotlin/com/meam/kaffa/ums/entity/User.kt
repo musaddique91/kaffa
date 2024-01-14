@@ -40,11 +40,4 @@ data class User(
     @Convert(converter = KeyValueListConvertor::class)
     var customFields: List<KeyValue>?,
     @OneToOne(cascade = [CascadeType.ALL]) var userAuth: UserAuth
-//    @ElementCollection
-//    @CollectionTable(
-//        name = "organization_ids",
-//        joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")]
-//    )
-//    @Column(name = "organization_id")
-//    var organizationIds: MutableList<Long> = mutableListOf()
 ) : BaseEntity()

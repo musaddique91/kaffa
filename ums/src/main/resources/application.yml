@@ -66,3 +66,7 @@ logging:
       springframework:
         security: DEBUG
 #        web: DEBUG
+admin:
+  service:
+    name: "admin"
+    url: "http://localhost:8051"

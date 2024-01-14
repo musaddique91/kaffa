@@ -1,4 +1,4 @@
-package com.musa.wp.approvalsys.kafka
+package com.meam.kaffa.ums.event
 
 import com.meam.kaffa.common.constants.KafkaConstants
 import com.meam.kaffa.common.events.MailNotificationEvent
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service
 
 @Service
 @Slf4j
-class NotificationMessageService(
-    private val kafkaTemplate: KafkaTemplate<String, MailNotificationEvent>,
+class MailNotificationProducer(
+    private val kafkaTemplate: KafkaTemplate<String, MailNotificationEvent>
 ) {
-    fun send(message: MailNotificationEvent) {
-        kafkaTemplate.send(KafkaConstants.NOTIFICATION_TOPIC, message)
+    fun publish(kaffaEvent: MailNotificationEvent) {
+        kafkaTemplate.send(KafkaConstants.NOTIFICATION_TOPIC, kaffaEvent)
     }
 }
