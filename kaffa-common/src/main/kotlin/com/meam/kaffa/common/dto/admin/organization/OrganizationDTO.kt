@@ -14,4 +14,5 @@ class OrganizationDTO(
     val description: String?,
     val address: List<AddressDTO> = emptyList(),
     val modules: List<ModuleDTO> = emptyList(),
+    val organizationConfig: OrganizationConfigDTO? = null
 )

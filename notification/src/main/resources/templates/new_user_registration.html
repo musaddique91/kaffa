@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to {{organization.name}}</title>
+</head>
+<body>
+<p>Dear ${user.firstName} ${user.lastName},</p>
+
+<p>Welcome to our {{organizationName}}! Your account has been created successfully.</p>
+<p>Username: ${user.username}<br>
+    Password: ${password}
+</p>
+
+<p>To log in, click the following link:</p>
+
+<a href="${user.loginLink}">LOGIN</a>
+
+<p>If you did not create this account or did not request access, please ignore this email.</p>
+
+<p>Best regards,</p>
+<p>The {{organization.name}} Team</p>
+</body>
+</html>

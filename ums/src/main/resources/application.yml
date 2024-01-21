@@ -70,3 +70,7 @@ admin:
   service:
     name: "admin"
     url: "http://localhost:8051"
+ums:
+  user:
+    config:
+      default_password: "${USER_DEFAULT_PASSWORD: user123}"

@@ -7,6 +7,6 @@ import org.springframework.context.ApplicationEvent
 data class MailNotificationEvent @JsonCreator constructor(
     val source: String,
     val to: MutableList<String>,
-    val type: NotificationType,
+    var type: NotificationType? = null,
     val modalMapData: MutableMap<String, String>
 ) : ApplicationEvent(source)

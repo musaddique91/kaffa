@@ -34,8 +34,23 @@ spring:
           json:
             trusted:
               packages: "*"
-  notification:
-    server_url: ${SERVER_URL:http://localhost:8080}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: meamscheduler@gmail.com
+    password: euydbdmuohxmyrht
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  freemarker:
+    suffix: .html
+    template-loader-path: classpath:templates/
+notification:
+  from: support@approval-sys.com
+  server_url: ${SERVER_URL:http://localhost:8080}
 eureka:
   instance:
     lease-expiration-duration-in-seconds: 2
@@ -65,6 +80,3 @@ logging:
     org:
       springframework:
         security: DEBUG
-ums:
-  service:
-    name: "ums"

@@ -1,14 +1,19 @@
 package com.meam.kaffa.ums.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.meam.kaffa.common.dto.ums.RoleDTO
 import com.meam.kaffa.common.dto.ums.UserDTO
+import com.meam.kaffa.common.events.MailNotificationEvent
+import com.meam.kaffa.common.events.NotificationType
 import com.meam.kaffa.ums.client.AdminClient
+import com.meam.kaffa.ums.config.ConfigProperties
 import com.meam.kaffa.ums.entity.User
 import com.meam.kaffa.ums.mapper.UserMapper
 import com.meam.kaffa.ums.repository.RoleRepository
 import com.meam.kaffa.ums.repository.UserAuthRepository
 import com.meam.kaffa.ums.repository.UserRepository
 import lombok.extern.slf4j.Slf4j
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -20,7 +25,10 @@ class UserService(
     private val userMapper: UserMapper,
     private val userAuthRepository: UserAuthRepository,
     private val roleRepository: RoleRepository,
-    private val adminClient: AdminClient
+    private val adminClient: AdminClient,
+    private val configProperties: ConfigProperties,
+    private val applicationEventPublisher: ApplicationEventPublisher,
+    private val objectMapper: ObjectMapper
 ) {
 
     fun create(userDTO: UserDTO): UserDTO {
@@ -37,7 +45,7 @@ class UserService(
             .map { it.id }
             .mapNotNull { roleRepository.findByIdOrNull(it) }
             .let {
-                user.roles=it
+                user.roles = it
                 user
             }
     }
@@ -72,7 +80,28 @@ class UserService(
             }
     }
 
-    private fun sendAccountCreatedMail(user: User){
+    private fun sendAccountCreatedMail(user: User) {
+        var userDTO = userMapper.toDTO(user);
         val organization = adminClient.getOrganizationById(user.organizationId)
+        var event = MailNotificationEvent(
+            source = "USER_PASSWORD",
+            to = mutableListOf(user.email!!),
+            modalMapData = mutableMapOf(
+                "user" to objectMapper.writeValueAsString(userDTO),
+                "organization" to objectMapper.writeValueAsString(organization),
+            ),
+        )
+        if (organization.organizationConfig != null) {
+            if (organization.organizationConfig?.createUserWithPassword == true) {
+                event.modalMapData["password"] = configProperties.defaultPassword
+                event.type = NotificationType.NEW_USER_MAIL_WITH_PASSWORD
+            } else {
+                event.type = NotificationType.NEW_USER_WITH_PASSWORD_RESET_MAIL
+            }
+        } else {
+            event.type = NotificationType.NEW_USER_WITH_PASSWORD_RESET_MAIL
+        }
+        applicationEventPublisher.publishEvent(event)
     }
+
 }
