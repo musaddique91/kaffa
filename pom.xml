@@ -71,6 +71,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>annotations</artifactId>
+                    <groupId>org.jetbrains</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -86,11 +92,16 @@
             <artifactId>kotlinx-serialization-json</artifactId>
             <version>${kotlin-serialization.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>de.codecentric</groupId>-->
-<!--            <artifactId>spring-boot-admin-starter-client</artifactId>-->
-<!--            <version>3.2.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>de.codecentric</groupId>-->
+        <!--            <artifactId>spring-boot-admin-starter-client</artifactId>-->
+        <!--            <version>3.2.0</version>-->
+        <!--        </dependency>-->
     </dependencies>
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
@@ -179,7 +190,15 @@
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </annotationProcessorPath>
+                        <path>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${hibernate.version}</version>
+                        </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <compilerArg>-AaddGeneratedAnnotation=true</compilerArg>
+                    </compilerArgs>
                 </configuration>
                 <executions>
                     <!-- Replacing default-compile as it is treated specially by maven -->
@@ -243,5 +262,9 @@
         <module>kaffa-security</module>
         <module>admin</module>
         <module>ums</module>
+        <module>notification</module>
+        <module>student</module>
+        <module>teacher</module>
+        <module>school-core</module>
     </modules>
 </project>

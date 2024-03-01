@@ -9,6 +9,8 @@ data class PreferencesDTO(
     var id: Long?,
     var language: String?,
     var theme: String?,
-) {
-    constructor() : this(null, null, null)
+    var layout: String?,
+
+    ) {
+    constructor() : this(null, null, null, null)
 }

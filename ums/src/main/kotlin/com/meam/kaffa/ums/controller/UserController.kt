@@ -25,4 +25,9 @@ class UserController(
     fun deleteUser(@PathVariable id: Long): Boolean {
         return userService.delete(id).run { true }
     }
+
+    @GetMapping
+    fun getUsers(@RequestParam username: String, @RequestParam search: String): List<UserDTO> {
+        return userService.getUsers(username, search)
+    }
 }

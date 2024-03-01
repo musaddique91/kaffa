@@ -24,15 +24,6 @@ spring:
       maximum-pool-size: ${DB_MAX_POOL_SIZE:50}
   liquibase:
     changeLog: classpath:/db/db.changelog-master.xml
-  freemarker:
-    template-loader-path: classpath:/templates
-    suffix: .html
-  kafka:
-    url: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
-    producer:
-      bootstrap-servers: ${spring.kafka.url}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 #  boot:
 #    admin:
 #      client:

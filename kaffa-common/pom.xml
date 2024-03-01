@@ -63,6 +63,7 @@
                         <plugin>jpa</plugin>
                     </compilerPlugins>
                 </configuration>
+
                 <dependencies>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
@@ -80,6 +81,7 @@
                         <version>${lombok.version}</version> <!-- Check for the latest version on the Lombok website -->
                         <scope>compile</scope>
                     </dependency>
+
                 </dependencies>
                 <executions>
                     <execution>
@@ -97,6 +99,7 @@
                                     <artifactId>mapstruct-processor</artifactId>
                                     <version>${mapstruct.version}</version>
                                 </annotationProcessorPath>
+
                             </annotationProcessorPaths>
                         </configuration>
                     </execution>

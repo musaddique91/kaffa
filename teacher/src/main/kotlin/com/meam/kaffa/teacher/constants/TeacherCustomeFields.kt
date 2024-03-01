@@ -1,0 +1,14 @@
+package com.meam.kaffa.teacher.constants
+
+object TeacherCustomeFields {
+    val TEACHER_ID = "TEACHERID"
+    val DEPARTMENT = "DEPARTMENT"
+    val DIVISION = "DIVISION"
+    val JOINING_DATE = "JOININGDATE"
+    val NATIONALITY = "NATIONALITY"
+    val LANGUAGE_SPOKEN = "LANGUAGESPOKEN"
+    val SUBJECTS = "SUBJECTS"
+    val YEARS_OF_EXPERIENCE = "YEARSOFEXPERIENCE"
+    val QUALIFICATIONS = "QUALIFICATIONS"
+    val NOTE = "DESCRIPTION"
+}

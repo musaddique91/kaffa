@@ -1,19 +1,14 @@
 package com.meam.kaffa.ums.service
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.meam.kaffa.common.dto.ums.RoleDTO
 import com.meam.kaffa.common.dto.ums.UserDTO
-import com.meam.kaffa.common.events.MailNotificationEvent
-import com.meam.kaffa.common.events.NotificationType
-import com.meam.kaffa.ums.client.AdminClient
 import com.meam.kaffa.ums.config.ConfigProperties
-import com.meam.kaffa.ums.entity.User
+import com.meam.kaffa.ums.entity.UserAuth
 import com.meam.kaffa.ums.mapper.UserMapper
 import com.meam.kaffa.ums.repository.RoleRepository
 import com.meam.kaffa.ums.repository.UserAuthRepository
 import com.meam.kaffa.ums.repository.UserRepository
 import lombok.extern.slf4j.Slf4j
-import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -25,19 +20,26 @@ class UserService(
     private val userMapper: UserMapper,
     private val userAuthRepository: UserAuthRepository,
     private val roleRepository: RoleRepository,
-    private val adminClient: AdminClient,
-    private val configProperties: ConfigProperties,
-    private val applicationEventPublisher: ApplicationEventPublisher,
-    private val objectMapper: ObjectMapper
+    private val configProperties: ConfigProperties
 ) {
-
     fun create(userDTO: UserDTO): UserDTO {
         val userDTO = userMapper.toEntity(userDTO)
             .let { mapRole(it, userDTO.roles) }
-            .let { userRepository.save(it) }
+            .let {
+                var userAuth: UserAuth = createUserAuth(userDTO)
+                it.userAuth = userAuth
+                userRepository.save(it)
+            }
             .let { userMapper.toDTO(it) }
-        //send event to notification service
         return userDTO
+    }
+
+    private fun createUserAuth(userDTO: UserDTO): UserAuth {
+        return UserAuth(
+            username = userDTO.username,
+            password = configProperties.defaultPassword,
+            enable = true,
+        )
     }
 
     private fun mapRole(user: com.meam.kaffa.ums.entity.User, roles: List<RoleDTO>): com.meam.kaffa.ums.entity.User {
@@ -80,28 +82,8 @@ class UserService(
             }
     }
 
-    private fun sendAccountCreatedMail(user: User) {
-        var userDTO = userMapper.toDTO(user);
-        val organization = adminClient.getOrganizationById(user.organizationId)
-        var event = MailNotificationEvent(
-            source = "USER_PASSWORD",
-            to = mutableListOf(user.email!!),
-            modalMapData = mutableMapOf(
-                "user" to objectMapper.writeValueAsString(userDTO),
-                "organization" to objectMapper.writeValueAsString(organization),
-            ),
-        )
-        if (organization.organizationConfig != null) {
-            if (organization.organizationConfig?.createUserWithPassword == true) {
-                event.modalMapData["password"] = configProperties.defaultPassword
-                event.type = NotificationType.NEW_USER_MAIL_WITH_PASSWORD
-            } else {
-                event.type = NotificationType.NEW_USER_WITH_PASSWORD_RESET_MAIL
-            }
-        } else {
-            event.type = NotificationType.NEW_USER_WITH_PASSWORD_RESET_MAIL
-        }
-        applicationEventPublisher.publishEvent(event)
+    fun getUsers(username: String, search: String): List<UserDTO> {
+        return emptyList();
     }
 
 }

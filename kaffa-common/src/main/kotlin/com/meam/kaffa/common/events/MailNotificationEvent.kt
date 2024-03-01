@@ -8,5 +8,6 @@ data class MailNotificationEvent @JsonCreator constructor(
     val source: String,
     val to: MutableList<String>,
     var type: NotificationType? = null,
-    val modalMapData: MutableMap<String, String>
+    val modalMapData: MutableMap<String, String>,
+    val title: String?
 ) : ApplicationEvent(source)

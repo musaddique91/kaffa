@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0" author="admin">
+        <createTable tableName="department">
+            <column name="code" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+        <insert tableName="department ">
+            <column name="code" value="TEACHERS" />
+            <column name="name" value="Teachers" />
+        </insert>
+        <createTable tableName="grades">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="grades_divisions">
+            <column name="grades_id" type="bigint" />
+            <column name="divisions_id" type="bigint" />
+        </createTable>
+        <addUniqueConstraint tableName="grades_divisions"
+                             columnNames="grades_id, divisions_id"
+                             constraintName="unique_grades_divisions"/>
+        <createTable tableName="division">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

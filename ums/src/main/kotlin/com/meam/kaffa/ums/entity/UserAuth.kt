@@ -14,5 +14,5 @@ data class UserAuth(
     @Column(nullable = false) val enable: Boolean = true,
     @Column(nullable = true) var isTempPassword: Boolean = false,
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true) var adminUserType: AdminUserType,
+    @Column(nullable = true) var adminUserType: AdminUserType?=null,
 ) : BaseEntity()

@@ -9,4 +9,5 @@ import lombok.Data
 data class Preferences(
     var language: String,
     var theme: String,
+    var layout: String,
 ) : BaseIdEntity()

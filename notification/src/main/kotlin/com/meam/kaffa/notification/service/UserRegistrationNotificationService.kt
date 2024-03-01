@@ -5,14 +5,14 @@ import com.meam.kaffa.common.dto.admin.organization.OrganizationDTO
 import com.meam.kaffa.common.dto.ums.UserDTO
 import com.meam.kaffa.notification.MailComposeDTO
 import com.meam.kaffa.notification.config.ConfigProperties
-import com.meam.kaffa.notification.mail.MailSender
+import com.meam.kaffa.notification.mail.KaffaMailSender
 import freemarker.template.Configuration
 import org.springframework.stereotype.Service
 import java.io.StringWriter
 
 @Service
 class UserRegistrationNotificationService(
-    private val mailSender: MailSender,
+    private val kaffaMailSender: KaffaMailSender,
     private val freemarkerConfiguration: Configuration,
     private val configProperties: ConfigProperties,
     private val objectMapper: ObjectMapper
@@ -34,6 +34,6 @@ class UserRegistrationNotificationService(
             subject = "Approval System: Your account information",
             templateContent = writer.buffer.toString()
         )
-        mailSender.send(data)
+        kaffaMailSender.send(data)
     }
 }

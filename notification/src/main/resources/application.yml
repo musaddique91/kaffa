@@ -3,7 +3,7 @@ server:
   shutdown: "graceful"
 spring:
   application:
-    name: "admin"
+    name: "notification"
   jpa:
     generate-ddl: "true"
     hibernate:
@@ -28,7 +28,7 @@ spring:
       group-id: wp-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
           json:
@@ -80,3 +80,7 @@ logging:
     org:
       springframework:
         security: DEBUG
+ums:
+  service:
+    name: "ums"
+    url: "http://localhost:8052"

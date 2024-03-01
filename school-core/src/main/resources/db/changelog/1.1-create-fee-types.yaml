@@ -1,0 +1,104 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.1-create-fee-types
+      author: musaddique
+      changes:
+        - createTable:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: organization_id
+                  type: bigint
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "TUITION"
+              - column:
+                  name: name
+                  value: "Tuition Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "ADMISSION"
+              - column:
+                  name: name
+                  value: "Admission Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "EXAMINATION"
+              - column:
+                  name: name
+                  value: "Examination Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "LIBRARY"
+              - column:
+                  name: name
+                  value: "Library Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "EVENTS"
+              - column:
+                  name: name
+                  value: "Events Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "SPORTS"
+              - column:
+                  name: name
+                  value: "Sports Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "TRANSPORTATION"
+              - column:
+                  name: name
+                  value: "Transportation Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "LABORATORY"
+              - column:
+                  name: name
+                  value: "Laboratory Fees"
+        - insert:
+            tableName: fee_types
+            columns:
+              - column:
+                  name: code
+                  value: "COMPUTER"
+              - column:
+                  name: name
+                  value: "Computer Fees"
+      comment:   Insert initial fee types into fee_types table

@@ -1,0 +1,75 @@
+server:
+  port: 8080
+  shutdown: "graceful"
+
+spring:
+  application:
+    name: "school-core"
+  jpa:
+    generate-ddl: "true"
+    hibernate:
+      ddl-auto: "update"
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: "true"
+        jdbc:
+          lob:
+            non_contextual_creation: "true"
+  datasource:
+    url: "jdbc:mysql://${MYSQL_HOST:localhost}:3306/kaffa_school?sslmode=${PG_SSLMODE}"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    username: "${DB_USERNAME:root}"
+    password: "${DB_PASSWORD:root}"
+    hikari:
+      maximum-pool-size: ${DB_MAX_POOL_SIZE:50}
+  liquibase:
+    changeLog: classpath:/db/db.changelog-master.xml
+    enabled: false
+  kafka:
+    url: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+    producer:
+      bootstrap-servers: ${spring.kafka.url}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:8091
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+management:
+  server:
+    port: 8081
+  endpoint:
+    health:
+      show-details: "always"
+      probes:
+        enabled: "true"
+  endpoints:
+    health:
+      sensitive: "true"
+    web:
+      exposure:
+        include: "*"
+  observations:
+    key-values:
+      application: ${spring.application.name}
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+#        web: DEBUG
+admin:
+  service:
+    name: "admin"
+ums:
+  service:
+    name: "ums"
+student:
+  service:
+    name: "ums"
